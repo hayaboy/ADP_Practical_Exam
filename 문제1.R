@@ -19,3 +19,58 @@
 
 #3)생성된 연관규칙 'rules_1'에 대한 정보를 해석하고 1)번 문제를 통해 확인했을 때 가장 많이 추첨된 번호가 우측항에 존재하는
 #규칙들만을 'rules_most_freq'라는 변수에 저장하시오, 그리고 해당 규칙들을 해석하여 인사이트를 도촐한 후 서술하시오.,
+
+
+getwd()
+
+setwd('./data')
+getwd()
+
+lot<-read.csv(file.choose())
+
+
+as(lot, "transactions")
+
+str(lot)
+
+sum(is.na(lot))
+
+#unique(lot$num1)
+
+#내가 원하는 형태의 표로 만들경우 melt 함수
+
+library(reshape2)
+?melt()
+
+log_melt<-melt(lot, id.vars = 1)
+
+
+log_melt2<-log_melt[,-2]
+
+str(log_melt2)
+
+
+
+
+#연관분석을 위한 패키지 arules
+
+
+library(arules)
+
+log_melt2$time_id
+log_melt2$value
+
+?split()
+
+
+lot_sp<-split(log_melt2$value, log_melt2$time_id)
+
+
+lot_sp
+
+
+lot_ts<-as(lot_sp, "transactions")
+
+
+inspect(lot_ts[1])
+
