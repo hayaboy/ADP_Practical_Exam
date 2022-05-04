@@ -74,3 +74,49 @@ lot_ts<-as(lot_sp, "transactions")
 
 inspect(lot_ts[1])
 
+
+
+
+##비정형 텍스트 마이닝
+
+
+#1) '영화 기생충_review.txt' 데이터를 읽어온 뒤 숫자, 특수 문자 등을 제거하는 전처리 작업, 그리고 '영화 기생충_review.txt'을
+#사전에 등록
+
+
+#2) '영화 기생충_사전.txt'를 단어 사전으로 하는 TDM을 구축하고 빈도를 파악하고 시각화
+
+#3) extractNown으로 명사를 추출하여 워드클라우드를 그리고 특성을 파악
+
+
+##통계분석
+#1) FIFA데이터에서 각 선수의 키는 Height변수에 피트와 인치로 입력되어 있다.
+#이를 cm로 변환하여 새로운 변수 Height_cm을 생성하시오(1피트=30cm, 1인치=2.5cm)
+
+#2) 포지션을 의미하는 Position변수를 아래 표를 참고하여 "Forward", "Midfielder","Defender","GoalKeeper"로 재범주화하고, 
+#factor형으로 변환하여 Position_Class라는 변수를 생성하고 저장
+
+# Forward : LS,ST,RS,LW,LF,CF,RF,RW
+# Midfielder : LAM,CAM,RAM,LM,LCM,CM,RCM,RM
+# Defender : LWB,LDM,CDM,RDM,RWB,LB,LCB,CB,RCB,RB
+# GoalKeeper :GK
+
+#3) 새로 생성한 Position_Class 변수의 각 범주에 따른 Value 변수 평균값의 차이를 비교하는 일원배치 분산분석을 수행하고 결과해석
+#(데이터는 등분산성 가정을 만족한다고 가정, 그리고 평균값의 차이가 통계적으로 유의하다면 사후 검중을 수행하고 설명하시오)
+
+#4) Preferred Foot(주로 사용하는 발)과 Position_Class(재범주화된 포지션) 변수에 따라 Value(선수의 시장가치)의 
+#차이가 있는지를 알아보기 위해 이원배치분산분석을 수행하고 결과 해석
+
+
+#5) Age, Overall, Wage, Height_cm, Weight_lb가 Value에 영향을 미치는지 알아보는 회귀 분석을
+#단계적 선택법을 사용하여 수행하고 결과를 해석하시오.
+
+
+
+
+
+
+
+
+
+
