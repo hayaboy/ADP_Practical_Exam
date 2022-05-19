@@ -135,7 +135,89 @@ t.test(apple, alternative = "two.sided", mu = 200)
 
 
 
-## 대응 표본 t 검정(paired sample t-test)
+## 대응 표본 t 검정(paired sample t-test) : 10명의 환자에 대해 수면제 복용전, 복용후(똑같은 대상을 두 번 테스트 )
+#귀무 : 수면시간에 차이가 없다.(0)
+#대립 : 복용 전과 후 평균 수면 시간 차이가 0보다 적다.
+
+
+data<-data.frame(before=c(7,3,4,5,2,1,6,6,5,4), after=c(8,4,5,6,2,3,6,8,6,5))
+#t검정 결과 검정통계량(t값)은 -4.7434,, df(자유도)는 9, 유의확률(p-value)은0.0005269
+#0.05보다 작기 때문에 대립가설 채택(수면제 복용 전과 후의 평균 수명시간 차이는 통계적으로 유의, 수면 시간이 늘었다. )
+
+t.test(data$before, data$after, alternative = "less", paired = TRUE)
+
+
+## 독립 표본 t 검정(independent sample t-test) : A,B 두 지역의 겨울 낮 최고기온에 차이가 있는지
+group<-factor(rep(c("A","B"), each=10))
+group
+
+A<-c(-1,0,3,4,1,3,3,1,1,3) # A 지역의 온도
+B<-c(6,6,8,8,11,11,10,8,8,9) # B 지역의 온도
+
+weather<-data.frame(group=group, temp=c(A,B))
+weather
+
+#1)가설설정
+#귀무 : 온도에 차이가 없다.
+#대립 : 온도에 차이가 있다.
+#2)유의 수준 설정
+#3)등분산 검정
+
+?var.test #귀무 : 등분산 가정 만족
+
+var.test( temp ~ group, data = weather, alternative = "two.sided")  # p값이  0.7833이므로 등분산 가정 만족
+
+t.test(temp ~ group, data = weather, alternative = "two.sided",var.equal=TRUE)
+#t검정 결과 검정통계량(t값)은 -8.806, df(자유도)는 18, 유의확률(p-value)은6.085e-08
+#0.05보다 작기 때문에 대립가설 채택(겨울 낮 최고 기온에는 통계적으로 유의한 차이가  존재재)
+
+
+
+
+
+
+
+########분산 분석#####################
+
+#1일원 배치 분산분석(One-way ANOVA)
+# 종별로 꽃받침의 폭의 평균이 같은지 혹은 차이가 있는지 확인
+
+str(iris)
+
+result<-aov(Sepal.Width ~ Species, data=iris)
+
+result
+
+summary(result)
+
+#Df   집단의 수-1    , 관측값의 수 - 집단의 수 
+
+#p값이 0.05보다 작기 때문에 세가지 종에 따른 꽃받침의 폭이 모두 동일하지 않다. 어느 하나의 종은 통계적으로 유의한 차이가 있는 값을 가진다고 말할 수 있다. 
+
+#세가지 종들 중 측히 어떠한 종들 간에 꽃받침의 폭에 차이가 있는지를 파악하기 위해 사후 검정 수행
+
+
+?TukeyHSD
+
+TukeyHSD(aov(Sepal.Width ~ Species, data=iris))
+
+#모두 p값이 0.05보다 작으므로 모든 종들에 대해서 꽃받침 폭의 평균값은 통계적으로 유의한 차이가 있다.
+
+#2이원 배치 분산분석(Two-way ANOVA)
+#3다원 배치 분산분석(Multi-way ANOVA)
+#4다변량 (MANOVA) : 종속변수가 2개 이상
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
